@@ -86,7 +86,45 @@ button:disabled {
   color: var(--bad);
 }
 
+.knowledge .hint,
+.muted {
+  color: var(--muted);
+}
+
+.knowledge-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.file-button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 8px;
+  background: var(--accent-strong);
+  color: #0f0e17;
+  cursor: pointer;
+}
+
+.file-button:focus-within {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 2px;
+}
+
+button.secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.documents {
+  padding-left: 20px;
+}
+
 .report,
+.knowledge,
 .chat {
   margin-top: 32px;
   padding: 24px;

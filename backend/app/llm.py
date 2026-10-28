@@ -12,7 +12,7 @@ import re
 from collections.abc import AsyncIterator
 from typing import Protocol
 
-from .prompts import ANALYZE_SYSTEM, CHAT_SYSTEM
+from .prompts import ANALYZE_SYSTEM, CHAT_SYSTEM, NO_CONTEXT
 from .schemas import AnalyzeResponse, ChatMessage
 
 # Skills the offline provider knows how to match. Order = display order.
@@ -29,7 +29,7 @@ class LLMProvider(Protocol):
     async def analyze(self, job_description: str, resume: str) -> AnalyzeResponse: ...
 
     def chat(
-        self, job_description: str, resume: str, messages: list[ChatMessage]
+        self, job_description: str, resume: str, messages: list[ChatMessage], context: str = ""
     ) -> AsyncIterator[str]: ...
 
 
@@ -61,12 +61,13 @@ class OfflineProvider:
         )
 
     async def chat(
-        self, job_description: str, resume: str, messages: list[ChatMessage]
+        self, job_description: str, resume: str, messages: list[ChatMessage], context: str = ""
     ) -> AsyncIterator[str]:
         last = messages[-1].content
+        found = "I found relevant excerpts in your documents. " if context else ""
         reply = (
             "Offline mode: set OPENAI_API_KEY to get real coaching. "
-            f'You asked: "{last}". Tip: answer with Situation, Action and Result, '
+            f'You asked: "{last}". {found}Tip: answer with Situation, Action and Result, '
             "using a real example from your resume."
         )
         for word in reply.split(" "):
@@ -97,9 +98,11 @@ class OpenAIProvider:
         return AnalyzeResponse.model_validate(data)
 
     async def chat(
-        self, job_description: str, resume: str, messages: list[ChatMessage]
+        self, job_description: str, resume: str, messages: list[ChatMessage], context: str = ""
     ) -> AsyncIterator[str]:
-        system = CHAT_SYSTEM.format(job_description=job_description, resume=resume)
+        system = CHAT_SYSTEM.format(
+            job_description=job_description, resume=resume, context=context or NO_CONTEXT
+        )
         stream = await self.client.chat.completions.create(
             model=self.model,
             temperature=0.5,

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { analyze, type Analysis } from "./api";
 import { MatchReport } from "./components/MatchReport";
 import { Chat } from "./components/Chat";
+import { KnowledgeBase } from "./components/KnowledgeBase";
 
 export default function App() {
   const [jobDescription, setJobDescription] = useState("");
@@ -69,6 +70,7 @@ export default function App() {
       {analysis && (
         <>
           <MatchReport analysis={analysis} />
+          <KnowledgeBase />
           <Chat jobDescription={jobDescription} resume={resume} />
         </>
       )}
