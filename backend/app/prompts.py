@@ -22,4 +22,12 @@ JOB DESCRIPTION:
 {job_description}
 
 RESUME:
-{resume}"""
+{resume}
+
+EXCERPTS FROM THE CANDIDATE'S UPLOADED DOCUMENTS:
+{context}
+
+When you use an excerpt, cite it inline like [file.pdf #2].
+If the excerpts do not contain the answer, say so instead of guessing."""
+
+NO_CONTEXT = "(no documents uploaded)"
