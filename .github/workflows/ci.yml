@@ -17,7 +17,15 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
-      - run: python -m pytest -q
+      - name: Run tests
+        shell: bash
+        run: |
+          set +e
+          python -m pytest -q --tb=short -rf 2>&1 | tee pytest-output.txt
+          status=${PIPESTATUS[0]}
+          # Surface failures as annotations so they show up on the pull request.
+          grep -E "^(FAILED|ERROR)|Error:|error:" pytest-output.txt | head -20 | sed 's/^/::error::/'
+          exit $status
 
   frontend:
     runs-on: ubuntu-latest
