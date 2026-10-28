@@ -4,9 +4,15 @@ services:
     env_file: .env
     environment:
       CORS_ORIGINS: http://localhost:8080
+      DATA_DIR: /app/data
+    volumes:
+      - knowledge-data:/app/data
   frontend:
     build: ./frontend
     ports:
       - "8080:80"
     depends_on:
       - backend
+
+volumes:
+  knowledge-data:
