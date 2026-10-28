@@ -2,6 +2,8 @@
 
 Compare your resume with a job description, see where you match and where you fall short, and practice the interview with an AI coach that streams its answers in real time.
 
+**Live demo:** [copilot.ramonryon.com.br](https://copilot.ramonryon.com.br)
+
 **Stack:** React + TypeScript (Vite) · Python + FastAPI · OpenAI API · Docker · GitHub Actions
 
 <!-- Add a screenshot or GIF here once it is running: docs/demo.gif -->
@@ -76,5 +78,5 @@ CI runs both on every push and pull request.
 - [ ] Upload the resume as PDF and extract the text
 - [ ] Save past analyses (PostgreSQL)
 - [ ] Rate limiting per IP
-- [ ] Deploy (frontend on Vercel, backend on Render or Fly.io)
+- [x] Deploy with Docker Compose on a VPS, exposed through a Cloudflare Tunnel
 - [ ] Track token usage and latency per request
