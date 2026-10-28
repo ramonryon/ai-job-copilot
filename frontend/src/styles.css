@@ -1,0 +1,160 @@
+:root {
+  --bg: #0f0e17;
+  --surface: #1a1925;
+  --border: #2e2c3d;
+  --text: #f4f3f8;
+  --muted: #a9a6b8;
+  --accent: #8b7cf6;
+  --accent-strong: #b8aeff;
+  --good: #34d399;
+  --mid: #f59e0b;
+  --bad: #f87171;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 32px 16px 64px;
+}
+
+h1 {
+  margin: 0 0 8px;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin: 0 0 24px;
+}
+
+.inputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 600;
+}
+
+textarea,
+input {
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+textarea:focus,
+input:focus,
+button:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 2px;
+}
+
+button {
+  font: inherit;
+  font-weight: 600;
+  color: #0f0e17;
+  background: var(--accent-strong);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  min-height: 44px;
+  cursor: pointer;
+  justify-self: start;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error {
+  color: var(--bad);
+}
+
+.report,
+.chat {
+  margin-top: 32px;
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.score {
+  font-size: 18px;
+}
+
+.score-value {
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.score-high .score-value { color: var(--good); }
+.score-medium .score-value { color: var(--mid); }
+.score-low .score-value { color: var(--bad); }
+
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.messages {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.message {
+  padding: 12px 16px;
+  border-radius: 12px;
+  max-width: 80%;
+  white-space: pre-wrap;
+}
+
+.message-user {
+  align-self: flex-end;
+  background: #2b2647;
+}
+
+.message-assistant {
+  align-self: flex-start;
+  background: #22212e;
+  border: 1px solid var(--border);
+}
+
+.chat-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chat-form input {
+  flex: 1 1 240px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
