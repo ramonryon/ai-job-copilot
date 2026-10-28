@@ -178,6 +178,36 @@ button.secondary {
   border: 1px solid var(--border);
 }
 
+.sources {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.sources ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sources-label {
+  color: var(--muted);
+}
+
+.source-chip {
+  padding: 2px 10px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  color: var(--accent-strong);
+  cursor: help;
+}
+
 .chat-form {
   display: flex;
   flex-wrap: wrap;
