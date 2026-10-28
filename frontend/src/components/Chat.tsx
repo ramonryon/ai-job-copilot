@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { streamChat, type ChatMessage, type Source } from "../api";
+import { SourceChips } from "./SourceChips";
 
 type Props = { jobDescription: string; resume: string };
 
@@ -51,11 +52,7 @@ export function Chat({ jobDescription, resume }: Props) {
           <li key={i} className={`message message-${m.role}`}>
             <span className="visually-hidden">{m.role === "user" ? "You:" : "Coach:"}</span>
             {m.content || "…"}
-            {/*
-              TODO(Ramon): render m.sources here as small "chips" under the answer,
-              e.g. "resume.pdf #2", with the preview text on hover or in a tooltip.
-              Each Source has { source, chunk, preview }. Hide the row when the list is empty.
-            */}
+            {m.role === "assistant" && <SourceChips sources={m.sources} />}
           </li>
         ))}
       </ol>

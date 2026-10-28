@@ -95,7 +95,7 @@ CI runs both on every push and pull request.
 ## Roadmap
 
 - [x] Upload documents (PDF, Markdown, text) and answer with RAG
-- [ ] Show the retrieved sources as chips under each answer
+- [x] Show the retrieved sources as chips under each answer
 - [ ] Save past analyses (PostgreSQL)
 - [ ] Rate limiting per IP
 - [x] Deploy with Docker Compose on a VPS, exposed through a Cloudflare Tunnel
