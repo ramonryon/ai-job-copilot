@@ -33,9 +33,27 @@ export function getSessionId(): string {
 
 const sessionHeaders = () => ({ "X-Session-Id": getSessionId() });
 
-async function errorDetail(res: Response, fallback: string): Promise<string> {
+type ValidationIssue = { loc?: (string | number)[]; type?: string };
+
+/** Turns an error response into a message the user can act on. Exported for tests. */
+export async function errorDetail(res: Response, fallback: string): Promise<string> {
   const body = await res.json().catch(() => null);
-  return typeof body?.detail === "string" ? body.detail : fallback;
+
+  if (typeof body?.detail === "string") return body.detail;
+
+  // FastAPI validation errors: say which field and why.
+  if (res.status === 422 && Array.isArray(body?.detail)) {
+    const issue = body.detail[0] as ValidationIssue;
+    const field = issue.loc?.includes("resume") ? "resume" : "job description";
+    if (issue.type === "string_too_long") return `The ${field} is too long (max. 20,000 characters).`;
+    if (issue.type === "string_too_short") return `The ${field} is too short (min. 20 characters).`;
+    return `Please check the ${field}.`;
+  }
+
+  // Gateway or server errors usually mean the API is down or restarting.
+  if (res.status >= 500) return `The server is unavailable right now (HTTP ${res.status}). Please try again in a moment.`;
+
+  return fallback;
 }
 
 export async function analyze(jobDescription: string, resume: string): Promise<Analysis> {
